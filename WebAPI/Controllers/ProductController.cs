@@ -10,12 +10,10 @@ namespace WebAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-            _categoryService = categoryService;
         }
 
         // GET: api/product
@@ -42,9 +40,6 @@ namespace WebAPI.Controllers
         {
             if (product == null)
                 return BadRequest();
-            //var category = await _categoryService.GetByIdAsync(product.CategoryId);
-            //if (category == null)
-            //    return BadRequest("Invalid Category");
 
             
 
