@@ -27,6 +27,19 @@ namespace DataAccess.Concrete
                 .WithMany()
                 .HasForeignKey(p => p.CategoryId);
 
+            modelBuilder.Entity<UserOperationClaim>()
+                .HasKey(uoc => new { uoc.Id });
+
+            modelBuilder.Entity<UserOperationClaim>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(uoc => uoc.UserId);
+
+            modelBuilder.Entity<UserOperationClaim>()
+                .HasOne<OperationClaim>()
+                .WithMany()
+                .HasForeignKey(uoc => uoc.OperationClaimId);
+
             base.OnModelCreating(modelBuilder);
 
             // Seed Categories

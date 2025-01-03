@@ -6,7 +6,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private IAuthService _authService;
 
@@ -40,6 +40,11 @@ namespace WebAPI.Controllers
             if (userExists)
             {
                 return BadRequest();
+            }
+            if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+            {
+                // If authenticated and not an admin, forbid registration
+                return Forbid();
             }
 
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
