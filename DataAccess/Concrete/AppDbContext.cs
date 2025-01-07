@@ -40,6 +40,16 @@ namespace DataAccess.Concrete
                 .WithMany()
                 .HasForeignKey(uoc => uoc.OperationClaimId);
 
+            modelBuilder.Entity<CartItem>()
+            .HasOne(ci => ci.Cart)
+            .WithMany(c => c.CartItems)
+            .HasForeignKey(ci => ci.CartId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ci => ci.Product)
+                .WithMany()
+                .HasForeignKey(ci => ci.ProductId);
+
             base.OnModelCreating(modelBuilder);
 
             // Seed Categories
@@ -62,5 +72,7 @@ namespace DataAccess.Concrete
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }
