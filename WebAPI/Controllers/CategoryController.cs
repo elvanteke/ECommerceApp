@@ -53,9 +53,9 @@ namespace WebAPI.Controllers
 
             var updatedCategory = await _categoryService.UpdateAsync(category);
             if (updatedCategory == null)
-                return NotFound();
+                return NotFound(category);
 
-            return Ok(updatedCategory);
+            return Ok(category);
         }
 
         // DELETE: api/categories/{id}

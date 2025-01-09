@@ -35,12 +35,12 @@ namespace Business.Concrete
 
         public async Task<Category> UpdateAsync(Category category)
         {
-            return await _categoryRepository.UpdateAsync(category);
+            return await _categoryRepository.UpdateCategoryAsync(category);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _categoryRepository.DeleteAsync(id);
+            await _categoryRepository.DeleteCategoryAsync(id);
         }
     }
 }

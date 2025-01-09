@@ -23,7 +23,7 @@ namespace DataAccess.Concrete.EntityFramework
         //                         .FirstOrDefault(c => c.UserId == userId && c.IsActive);
         //}
 
-        public async Task<Cart> GetByIdAsync(int id)
+        public async new Task<Cart> GetByIdAsync(int id)
         {
             return await _context.Carts.Include(c => c.CartItems)
                                        .ThenInclude(ci => ci.Product)

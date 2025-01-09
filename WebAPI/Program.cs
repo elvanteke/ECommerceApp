@@ -22,6 +22,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenHelper, JwtHelper>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICartRepository, EfCartRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, EfOrderRepository>();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

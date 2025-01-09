@@ -9,32 +9,17 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfProductRepository : IProductRepository
+    public class EfProductRepository : EfEntityRepositoryBase<Product, AppDbContext>, IProductRepository
     {
-        private readonly AppDbContext _context;
+        
 
-        public EfProductRepository(AppDbContext context)
+        public EfProductRepository(AppDbContext context) : base(context)
         {
-            _context = context;
+            
         }
 
-        public async Task<List<Product>> GetAllAsync()
-        {
-            return await _context.Products.ToListAsync();
-        }
 
-        public async Task<Product> GetByIdAsync(int id)
-        {
-            return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-        }
-
-        public async Task AddAsync(Product product)
-        {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Product> UpdateAsync(Product product)
+        public async Task<Product> UpdateProductAsync(Product product)
         {
             var existingProduct = await _context.Products.FindAsync(product.Id);
             if (existingProduct == null) return null;
@@ -48,13 +33,12 @@ namespace DataAccess.Concrete.EntityFramework
             return existingProduct;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteProductAsync(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
+                await DeleteAsync(product);
             }
         }
     }

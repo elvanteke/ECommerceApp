@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IEntityRepository<Category>
     {
-        Task<List<Category>> GetAllAsync();
-        Task<Category> GetByIdAsync(int id);
-        Task AddAsync(Category category);
-        Task<Category> UpdateAsync(Category category);
-        Task DeleteAsync(int id);
+        Task DeleteCategoryAsync(int id);
+        Task<Category> UpdateCategoryAsync(Category category);
     }
 }

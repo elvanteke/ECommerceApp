@@ -1,6 +1,7 @@
 ﻿using DataAccess.Abstract;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,10 +39,11 @@ namespace DataAccess.Concrete
             await _context.SaveChangesAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
+        
 
         public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
         {
@@ -60,6 +62,10 @@ namespace DataAccess.Concrete
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _context.Database.BeginTransactionAsync();
         }
     }
 }

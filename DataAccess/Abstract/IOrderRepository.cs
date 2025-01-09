@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface ICartRepository : IEntityRepository<Cart>
+    public interface IOrderRepository : IEntityRepository<Order>
     {
-        //Cart GetByUserId(int userId);
-        public new Task<Cart> GetByIdAsync(int id);
+        Task<List<Order>> GetOrdersByUserIdAsync(int userId);
     }
 }

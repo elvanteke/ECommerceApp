@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,12 @@ namespace DataAccess.Abstract
 {
     public interface IEntityRepository<T> where T : class
     {
-        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
         Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null);
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task SaveChangesAsync();
+        Task<IDbContextTransaction> BeginTransactionAsync();
     }
 }

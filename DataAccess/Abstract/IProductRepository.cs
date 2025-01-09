@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IProductRepository
+    public interface IProductRepository : IEntityRepository<Product>
     {
-        Task<List<Product>> GetAllAsync();
-        Task<Product> GetByIdAsync(int id);
-        Task AddAsync(Product product);
-        Task<Product> UpdateAsync(Product product);
-        Task DeleteAsync(int id);
+        Task<Product> UpdateProductAsync(Product product);
+        Task DeleteProductAsync(int id);
     }
 }
